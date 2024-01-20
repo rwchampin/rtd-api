@@ -2,12 +2,15 @@ from django.shortcuts import render
 from django.shortcuts import render
 from .serializers import BlogTopicSerializer, PostTypeSerializer, TagSerializer, BlogPostSerializer, BlogPostPreviewSerializer
 from .models import BlogTopic, PostType, Tag, BlogPost
-from rest_framework import viewsets, generics, status, filters
+from rest_framework import viewsets, generics, status, filters,pagination
 from .manager import Assistant
 from rest_framework.decorators import api_view
 from bs4 import BeautifulSoup
 from rest_framework.response import Response
 
+
+class BlogPostPreviewPagination(pagination.PageNumberPagination):
+    page_size = 9  # the no. of company objects you want to send in one go
 
 # Create your views here.
 class BlogTopicViewSet(viewsets.ModelViewSet):
@@ -30,7 +33,7 @@ class BlogPostViewSet(viewsets.ModelViewSet):
 class BlogPostPreviewViewSet(viewsets.ModelViewSet):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostPreviewSerializer
-    
+    pagination_class = BlogPostPreviewPagination
     
 @api_view(['GET'])
 def write_posts(request):
