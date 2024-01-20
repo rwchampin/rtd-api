@@ -178,9 +178,10 @@ AUTH_COOKIE_SAMESITE = "None"
 
  
  
-CORS_ALLOWED_ORIGINS = getenv(
-    "CORS_ALLOWED_ORIGINS",
-    "https://www.api.ryanthedeveloper.com,http://www.api.ryanthedeveloper.com,http://localhost:8000,http://127.0.0.1:8000,https://localhost:3000,http://localhost:3000,http://127.0.0.1:3000,https://ryanthedeveloper.com,https://www.ryanthedeveloper.com,https://api.ryanthedeveloper.com,https://api.ryanthedeveloper.com",
-).split(",")
+# CORS_ALLOWED_ORIGINS = getenv(
+#     "CORS_ALLOWED_ORIGINS",
+#     "https://www.api.ryanthedeveloper.com,http://www.api.ryanthedeveloper.com,http://localhost:8000,http://127.0.0.1:8000,https://localhost:3000,http://localhost:3000,http://127.0.0.1:3000,https://ryanthedeveloper.com,https://www.ryanthedeveloper.com,https://api.ryanthedeveloper.com,https://api.ryanthedeveloper.com",
+# ).split(",")
+CORS_ALLOWED_ORIGINS = ['*']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
