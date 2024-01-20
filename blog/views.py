@@ -25,6 +25,7 @@ class TagViewSet(viewsets.ModelViewSet):
 class BlogPostViewSet(viewsets.ModelViewSet):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
+    lookup_field = 'slug'
     
 class BlogPostPreviewViewSet(viewsets.ModelViewSet):
     queryset = BlogPost.objects.all()
