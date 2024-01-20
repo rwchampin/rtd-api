@@ -11,7 +11,7 @@ from django.utils.text import slugify
 class Assistant:
     # init function
     def __init__(self, model_type='gpt-3.5-turbo'):
-        self.client = OpenAI(api_key='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')
+        # self.client = OpenAI(api_key='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')
         
         self.model = "gpt-3.5-turbo-1106"
         
