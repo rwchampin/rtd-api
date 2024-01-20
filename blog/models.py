@@ -32,6 +32,8 @@ class BlogPost(models.Model):
     topic = models.ForeignKey(BlogTopic, on_delete=models.SET_NULL, null=True)
     post_type = models.ForeignKey(PostType, on_delete=models.SET_NULL, null=True)
     tags = models.ManyToManyField(Tag)
+    keywords = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     
     def __str__(self):
         return self.title

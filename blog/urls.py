@@ -7,6 +7,7 @@ router.register(r'blog-topics', views.BlogTopicViewSet)
 router.register(r'post-types', views.PostTypeViewSet)
 router.register(r'tags', views.TagViewSet)
 router.register(r'blog-posts', views.BlogPostViewSet)
+router.register(r'blog-posts-preview', views.BlogPostPreviewViewSet)
 
 urlpatterns = [
     path('write-posts/', views.write_posts),

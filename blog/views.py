@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import render
-from .serializers import BlogTopicSerializer, PostTypeSerializer, TagSerializer, BlogPostSerializer
+from .serializers import BlogTopicSerializer, PostTypeSerializer, TagSerializer, BlogPostSerializer, BlogPostPreviewSerializer
 from .models import BlogTopic, PostType, Tag, BlogPost
 from rest_framework import viewsets, generics, status, filters
 from .manager import Assistant
@@ -25,6 +25,10 @@ class TagViewSet(viewsets.ModelViewSet):
 class BlogPostViewSet(viewsets.ModelViewSet):
     queryset = BlogPost.objects.all()
     serializer_class = BlogPostSerializer
+    
+class BlogPostPreviewViewSet(viewsets.ModelViewSet):
+    queryset = BlogPost.objects.all()
+    serializer_class = BlogPostPreviewSerializer
     
     
 @api_view(['GET'])

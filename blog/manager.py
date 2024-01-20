@@ -11,7 +11,7 @@ from django.utils.text import slugify
 class Assistant:
     # init function
     def __init__(self, model_type='gpt-3.5-turbo'):
-        self.client = OpenAI(api_key='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')
+        self.client = OpenAI(api_key='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')
         
         self.model = "gpt-3.5-turbo-1106"
         
@@ -409,6 +409,8 @@ class Assistant:
         self.soup = BeautifulSoup(html, 'html.parser')
         
         title = self.soup.title.string
+        description = self.soup.find('meta', attrs={'name': 'description'})
+        description = description['content'] if description else ''
         
         tags = self.soup.select('.tags a')
         
@@ -430,8 +432,11 @@ class Assistant:
 
 
 
-        data['title'] = self.create_title(title)
-            
+        info = self.create_info(self.soup)
+        data['title'] = info['title']
+        data['description'] = info['description']
+        data['keywords'] = info['keywords']
+        
         post_content = ''
         chunk_count = 1
         for chunk in chunks:
@@ -479,11 +484,20 @@ class Assistant:
         
         slug = slugify(data['title'])
         
-        post = BlogPost(title=data['title'], content=data['content'], slug=slug)
-        post.tags.add(*tags)
-        post.save()
+        post = BlogPost.objects.create(title=data['title'], content=data['content'], slug=slug, description=data['description'], keywords=data['keywords'])
+
         
-        return True
+        # add tags
+        for tag in tags:
+            post.tags.add(tag)
+        
+        # save the post
+        if post.save():
+            print('post saved')
+            
+            return True
+        
+        return False
     #     # data['featured_image'] = self.create_image(data)
         
     #     # get random post type
@@ -669,7 +683,7 @@ class Assistant:
             model="gpt-3.5-turbo-1106",
             response_format={ "type": "json_object" },
             messages=[
-                {"role": "system", "content": "You are a helpful assistant who will recieve a title & a description, if they are present for a blog post.  you will use the title & description to create a unique title, subtitle,excerpt, headline - which is a 2-5 word small intro title above the title, a shadowText - which is a 3-5 word alternative title used for visual design on the page and must be related to the post title, a post excerpt. You will also create a seo_title, seo_description. If the word 'AutoDS' is present, replace it with 'Importlio'. You will return a json object containing the title, subtitle,excerpt, headline, shadowText, seo_title, seo_description. The json object will look like: {title: 'my title', excerpt: 'some excerpt', subtitle: 'my subtitle', headline: 'my headline', shadowText: 'my shadowText', seo_title: 'my seo_title', seo_description: 'my seo_description'}"},
+                {"role": "system", "content": "you will get a title, description and list of seo meta keywords for a blog post.the keywords will be returned as a string with comma seperated values.  You will rewrite the title & description so it is unique, but still captures the same meaning.  You will return a json object containing the title, keywords & description. The json object will look like: {title: my title, description: my description, keywords: kw1,kw2,kw3}." },
                 {"role": "user", "content": s}
             ]
         )
@@ -863,4 +877,5 @@ class Assistant:
             made_post = self.rephrase(url)
             
             if made_post:
-                topic.used = True
+                # delete the topic
+                topic.delete()
