@@ -156,9 +156,7 @@ REST_FRAMEWORK = {
         'anon': '10/minute',
         'user': '10/minute'
     },
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "users.authentication.CustomJWTAuthentication",
-    ],
+   
     "DEFAULT_PERMISSION_CLASSES": [
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
