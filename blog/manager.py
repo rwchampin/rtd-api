@@ -11,7 +11,7 @@ from django.utils.text import slugify
 class Assistant:
     # init function
     def __init__(self, model_type='gpt-3.5-turbo'):
-        # self.client = OpenAI(api_key='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')
+        self.client = OpenAI()
         
         self.model = "gpt-3.5-turbo-1106"
         
@@ -683,7 +683,7 @@ class Assistant:
             model="gpt-3.5-turbo-1106",
             response_format={ "type": "json_object" },
             messages=[
-                {"role": "system", "content": "you will get a title, description and list of seo meta keywords for a blog post.the keywords will be returned as a string with comma seperated values.  You will rewrite the title & description so it is unique, but still captures the same meaning.  You will return a json object containing the title, keywords & description. The json object will look like: {title: my title, description: my description, keywords: kw1,kw2,kw3}." },
+                {"role": "system", "content": "you will get a title, description for a blog post. You will rewrite the title & description so it is unique, but still captures the same meaning. You will also generate a string of comma seperated values for seo meta keywords that relate to the post. There should be between 25-50.  You will return a json object containing the title, keywords & description. The json object will look like: {title: my title, description: my description, keywords: kw1,kw2,kw3}." },
                 {"role": "user", "content": s}
             ]
         )

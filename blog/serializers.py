@@ -20,12 +20,12 @@ class TagSerializer(serializers.ModelSerializer):
 class BlogPostSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
-        level = 2
+        depth = 2
         fields = ['title', 'subtitle', 'content', 'slug', 'created', 'updated', 'topic', 'post_type', 'tags']
         
 
 class BlogPostPreviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = BlogPost
-        level = 2
+        depth = 2
         fields = ['title', 'subtitle', 'slug', 'created', 'updated', 'topic', 'post_type', 'tags']
