@@ -1,6 +1,6 @@
 from rest_framework import serializers
  
-from .models import BlogTopic, PostType, Tag, BlogPost
+from .models import BlogTopic, PostType, Tag, BlogPost, Comment
 
 
 # mixin for pretty date
@@ -44,3 +44,18 @@ class BlogPostPreviewSerializer(serializers.ModelSerializer, PrettyDateMixin):
         model = BlogPost
         depth = 2
         fields = ['title', 'subtitle', 'slug', 'updated_pretty', 'updated', 'read_time', 'post_type', 'tags', 'description']
+        
+        
+
+# class CommentSerializer(serializers.ModelSerializer):
+#     replies = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = Comment
+#         fields = ['id', 'user', 'post', 'parent', 'content', 'created_at', 'updated_at', 'replies']
+
+#     def get_replies(self, obj):
+#         if obj.is_reply:
+#             return None  # No further nesting for replies
+#         replies = obj.replies.all()
+#         return CommentSerializer(replies, many=True).data

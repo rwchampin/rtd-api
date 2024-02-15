@@ -47,7 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'blog'
+    'blog',
+    'product'
+
 ]
 
 MIDDLEWARE = [
@@ -88,7 +90,7 @@ WSGI_APPLICATION = 'rtd_api.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "HOST": 'db-mysql-nyc3-84755-do-user-15647692-0.c.db.ondigitalocean.com', 
+        "HOST": getenv("DB_HOST"),
         "PORT": getenv("DB_PORT"),
         "NAME": getenv("DB_NAME"),
         "USER": getenv("DB_USER"),
@@ -163,8 +165,6 @@ REST_FRAMEWORK = {
    
     "DEFAULT_PERMISSION_CLASSES": [
     ],
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 50,  # Set the number of items per page
 }
 
 
@@ -185,3 +185,5 @@ AUTH_COOKIE_SAMESITE = "None"
 CORS_ALLOWED_ORIGINS = ['*']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_ALL_ORIGINS = True
+
+# custom user model
